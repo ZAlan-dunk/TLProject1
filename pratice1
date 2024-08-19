@@ -1,0 +1,84 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Test
+{
+    
+
+    class Program
+    {
+
+        //声明一个委托类型
+        public delegate int MyDelegate(int x,int y);
+
+
+
+        static int add(int a,int b)
+        {
+            return a + b;
+        }
+        static int sum(int a, int b)
+        {
+            return a - b;
+        }
+        static void eat()
+        {
+            Console.WriteLine("吃饭");
+        
+        }
+        static void play()
+        {
+            Console.WriteLine("玩耍");
+
+        }
+        public static void Main(string[] args)
+        {
+
+            //声明一个委托变量
+            MyDelegate myDelegate;
+
+            myDelegate = add;
+            add(3,4);
+            myDelegate(3, 4);
+
+            Person person = new Person();
+            Person.DoSomething doSomething;
+
+            doSomething = eat;
+            doSomething += play;
+            doSomething += delegate ()
+            {
+                Console.WriteLine("睡觉");
+            };
+            doSomething += () => {
+                Console.WriteLine("学习");
+            
+            };
+
+            person.Run(doSomething);
+
+             
+
+            Console.ReadKey();
+
+        }
+       
+    }
+    class Person
+    {
+        public delegate void DoSomething();
+
+        public DoSomething doSomething;
+
+        public void Run(DoSomething doSomething)    
+        {
+            doSomething();       
+        }
+    
+    }
+}
+
